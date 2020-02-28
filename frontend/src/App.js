@@ -39,6 +39,7 @@ class Square extends React.Component {
         onChange = {this.change}
         />
         <h1>{this.state.input}</h1>
+        <h2>New code for master</h2>
       </div>
     );
   }
