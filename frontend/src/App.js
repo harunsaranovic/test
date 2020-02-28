@@ -17,7 +17,7 @@ class Square extends React.Component {
     super(props);
     this.state = {
       value: 'Test',
-      input: 'Push to newBranch'
+      input: 'Push to Master'
     };
 
     this.change = this.change.bind(this);
