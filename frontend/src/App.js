@@ -17,12 +17,17 @@ class Square extends React.Component {
     super(props);
     this.state = {
       value: 'Test',
-      input: 'input value'
+      input: 1
     };
+
+    this.change = this.change.bind(this);
   }
 
   change(event) {
-    alert('A name was submitted: ' + this.state.value);
+    this.setState({input: event.target.value});
+    //var x = event.target.value * 2;
+    //this.setState({input: x});
+    //alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
   }
   
@@ -33,6 +38,7 @@ class Square extends React.Component {
         value={this.state.input} 
         onChange = {this.change}
         />
+        <h1>{this.state.input}</h1>
       </div>
     );
   }
