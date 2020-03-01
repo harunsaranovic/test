@@ -1,10 +1,26 @@
 import React from 'react';
+import './firstComponent.css';
+
 class FirstComponent extends React.Component {
-    render() {
-      return (
-        <button className="square" onClick={function() { alert('click'); }}>
-          {this.props.value}
-        </button>
-      );
-    }
-  }
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			buttonText: 'Button'
+		};
+	}
+
+	handleClick() {
+		return this.setState({ buttonText: 'Changed' });
+	}
+
+	render() {
+		return (
+			<button className="button" onClick={() => this.handleClick()}>
+				{this.state.buttonText}
+			</button>
+		);
+	}
+}
+
+export default FirstComponent;
