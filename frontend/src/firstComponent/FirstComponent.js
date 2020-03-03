@@ -6,13 +6,27 @@ class FirstComponent extends React.Component {
 		super(props);
 
 		this.state = {
+			clicked: false,
 			buttonText: 'Button'
 		};
 	}
 
 	handleClick() {
-		return this.setState({ buttonText: 'Changed' });
+		if (clicked) {
+			clicked != clicked;
+			return this.setState({ buttonText: 'Button' });
+		} else {
+			clicked != clicked;
+			return this.setState({ buttonText: 'Changed' });
+		}
 	}
+
+	//change
+	//change
+	//change
+	//change
+	//change
+	//change
 
 	render() {
 		return (
