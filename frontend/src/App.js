@@ -1,43 +1,87 @@
 import React from 'react';
 import './App.css';
-import FirstComponent from './firstComponent/FirstComponent';
+
+import { CeptorWrapper } from 'CeptorJS';
+//const CeptorWrapper2 = new CeptorWrapper();
+const CeptorJS = new CeptorWrapper();
 
 function App() {
 	return (
 		<div className="App">
 			<header className="App-headers">
-				<Square />
+				<CeptorTest />
 			</header>
 		</div>
 	);
 }
 
-class Square extends React.Component {
+class CeptorTest extends React.Component {
 	constructor(props) {
+		//setConfigParams()
+		const ceptorConfigParams = {
+			uatpHostUrl: 'https://ceptordev.uatp.com/api',
+			uatpAirlineIdentifier: 'SW'
+		};
+		CeptorJS.setConfigParams(ceptorConfigParams);
+
+		//setAFPParams()
+		const requestedAFPParams = {
+			transactionOrderNo: 123456,
+			amount: 100,
+			customerEmail: 'testing@test.ba',
+			customerMobile: 9766963679,
+			customerRef: 'testingref@email.com',
+			language: 'us',
+			currency: 840,
+			paymentMethodConfigParams: [
+				{
+					paymentMethod: 'ApplePay',
+					provider: 'CPD',
+					config: {
+						clientId: 10079,
+						password: 'testing',
+						hostUrl: 'https://uatp.uat-01.cellpointmobile.net',
+						countryId: 200,
+						accountId: 100790,
+						userName: 'UATP',
+						storeCard: false,
+						version: '1.0',
+						platform: 'HTML5/1.00',
+						transactionTypeId: 30,
+						applePayCardTypeId: 15
+					}
+				}
+			]
+		};
+		CeptorJS.setAFPParams(requestedAFPParams);
+
+		//Pass to PSS
+		function callbackFunction(response) {
+			const callbackFunctionResponse = response;
+		}
+
+		// Call get available payment methods to receive all available AFP
+		const paymentMethods = CeptorJS.getAvailablePaymentMethods(callbackFunction);
+		console.log('getAvailablePaymentMethods(callbackFunction)');
+		console.log(paymentMethods);
+
+		// After receiving paymentMethods and setting components parameters call setupAvailablePaymentMethods to enable payments
+		CeptorJS.setupAvailablePaymentMethods(callbackFunction);
+
+		const applePayComponent = if( methodAvailable){
+			return (<div className='divClassName’  id={htmlComponentId}>);
+		}
+
 		super(props);
 		this.state = {
-			value: 'Test',
-			input: 1
+			value: 'Test'
 		};
-
-		this.change = this.change.bind(this);
-	}
-
-	change(event) {
-		this.setState({ input: event.target.value });
-		//var x = event.target.value * 2;
-		//this.setState({input: x});
-		//alert('A name was submitted: ' + this.state.value);
-		event.preventDefault();
 	}
 
 	render() {
 		return (
 			<div>
-				<input type="text" className="input" value={this.state.input} onChange={this.change} />
-				<h1>{this.state.input}</h1>
-				<h2>New code for master</h2>
-				<FirstComponent />
+				<h2>Ceptor Test</h2>
 			</div>
 		);
 	}
